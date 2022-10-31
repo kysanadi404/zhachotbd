@@ -79,8 +79,10 @@ FROM book
 GROUP BY amount;
 
 -- 1.3.2
-SELECT  amount
-FROM book
+SELECT 
+    amount
+FROM
+    book
 GROUP BY amount;
 
 -- 1.3.3
@@ -165,7 +167,7 @@ WHERE price < ALL (
 -- 1.4.6
 SELECT title, author, amount, (SELECT MAX(amount) FROM book)-amount AS Заказ
 FROM book
-WHERE amount<>(SELECT MAX(amount) FROM book)
+WHERE amount<>(SELECT MAX(amount) FROM book);
 
 -- 1.4.7
 
@@ -286,7 +288,7 @@ GROUP BY city ORDER BY Количество DESC LIMIT 2;
 
 -- 1.6.6
 SELECT name,city, (SELECT  DATEDIFF(date_last, date_first ) + 1) AS Длительность
-FROM trip WHERE city <> "Москва" AND city <> "Санкт-Петербург" ORDER BY Длительность DESC 
+FROM trip WHERE city <> "Москва" AND city <> "Санкт-Петербург" ORDER BY Длительность DESC ;
 
 -- 1.6.7
 SELECT name, city, date_first, date_last 
@@ -321,7 +323,7 @@ WHERE name IN (
     GROUP BY name 
     HAVING COUNT(name) > 3)
 GROUP BY name 
-ORDER BY Сумма DESC
+ORDER BY Сумма DESC;
 
 --  1.7.2
 
@@ -351,10 +353,10 @@ WHERE sum_fine is NULL
 /*SELECT name, number_plate, violation
 from fine
 group by name, number_plate, violation
-having count(*) > 1;*/
+having count(*) > 1;*/;
 
 -- 1.7.6
-create table  NewTable AS  
+create table  NewTable AS 
 (
     select name, number_plate, violation from fine 
 GROUP BY name, number_plate, violation 
@@ -387,7 +389,7 @@ CREATE TABLE back_payment
      FROM fine
      WHERE date_payment IS NULL);
      
-SELECT * FROM back_payment
+SELECT * FROM back_payment;
 
 -- 1.7.9
 DELETE FROM fine
@@ -677,7 +679,8 @@ inner join buy_book using(buy_id)
 inner join book using(book_id)
 inner join author using(author_id)
 where name_author like 'Достоевск%'
-order by name_client
+order by name_client;
+
 -- 2.4.13
 SELECT name_genre, Количество
 FROM
@@ -722,7 +725,7 @@ JOIN step using (step_id)
 where step.name_step = 'Оплата' and buy_step.date_step_end is not null
 group by title) as query_in
 group by title
-order by Сумма desc  
+order by Сумма desc  ;
 -- 2.4.16
 SELECT title, sum(Количество) as 'Количество', sum(Сумма) as 'Сумма'
 FROM
@@ -737,4 +740,4 @@ JOIN step using (step_id)
 where step.name_step = 'Оплата' and buy_step.date_step_end is not null
 group by title) as query_in
 group by title
-order by Сумма desc
+order by Сумма desc;
